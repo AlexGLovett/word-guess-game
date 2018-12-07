@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Haunted Hangman Game</title>
+        <link rel="stylesheet" type="text/css" href="assets/css/spooky-style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    </head>
+
+    <body>
+
+        <header>
+                <nav class="topNav">
+                    <h1 class="headerLeft">Haunted Hangman</h1>
+                    <ul class="nav mt-4">
+                            <li><a href="#">About</a></li>
+                            <li class="sep">|</li>
+                            <li><a href="portfolio.html">Portfolio</a></li>
+                            <li class="sep">|</li>
+                            <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+        </header>
+
+        <div class="jumbotron col-4 offset-4 mt-3 mainContainer">
+            <h2 class="text-center" id="pressAnyButton">Press Any Button to Start</h2>
+            <h4 class="text-center">Type your guess!</h4>
+            <h5 class="text-center">Letters A-Z, others will be ignored</h5>
+            <h8>Guesses Remaining: 9</h8> <br>
+            <h8>Wins: 0</h8> <br>
+            <h9>Losses: 0</h9>
+            <p id="char-tracker" class="text-center"></p>
+            <p id="guessed-letters" class="text-center">Letters Guessed: </p>
+            </div>
+        </div>
+
+        <footer class="footer col-12 fixed-bottom">
+            Copyright ©
+        </footer>
+
+        <script type="text/javascript">
+
+        var onFirstKeyPress = true;
+        wins = 0;
+        losses = 0;
+
+        document.onkeypress = function(event){
+            console.log(event.key);
+            if (onFirstKeyPress==true){
+                onFirstKeyPress = false;
+                document.getElementById("pressAnyButton").innerHTML="";
+                gameStart();
+            }  
+        }
+
+        function gameStart(){
+            var monsterArray = ["frankenstein", "dracula", "thing", "it", "mummy", "swampthing", "babadook"];
+            
+            var randMonster = monsterArray[Math.floor(Math.random() * monsterArray.length)];
+            
+            var charArray = randMonster.split('');
+            
+            var slots = "";
+            
+            var guesses = 9;
+
+            
+            for (i=0; i < charArray.length; i++){
+                    slots+="_";
+                }
+
+            document.getElementById("char-tracker").innerHTML = slots;
+
+            console.log(charArray);
+
+            
+            document.onkeypress = function(event){
+            if (guesses > 0){
+            console.log(event.key);
+            console.log(event.charCode);
+                if (event.charCode >= 97 && event.charCode <= 122){
+                    for (i=0; i<charArray.length; i++){
+                            if (event.key == charArray[i]){
+                                var slots2 = slots;
+                                slots2[i] = event.key;
+                                document.getElementById("char-tracker").innerHTML = slots2;
+                                console.log(slots2);
+                                }
+                            }
+                        }
+                    }
+                else{
+                    gameStart();
+                }
+            }    
+        }
+
+        </script>
+
+    </body>
+
+</html>
