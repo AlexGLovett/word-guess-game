@@ -55,6 +55,7 @@
         }
 
         function gameStart(){
+            document.getElementById("guessed-letters").innerHTML = "Letters Guessed:";
             var monsterArray = ["frankenstein", "dracula", "thing", "it", "mummy", "swampthing", "babadook"];
             
             var randMonster = monsterArray[Math.floor(Math.random() * monsterArray.length)];
@@ -123,7 +124,6 @@
                             wins++;
                             document.getElementById("wins").innerHTML = "Wins: " + wins;
                             gameStart();
-                            document.getElementById("guessed-letters").innerHTML = "Letters Guessed:";
                         }                        
                     }
                 else{
@@ -131,7 +131,7 @@
                     losses++;
                     document.getElementById("losses").innerHTML = "Losses: " + losses;
                     gameStart();
-                    document.getElementById("guessed-letters").innerHTML = "Letters Guessed:";
+                    
                 }
             }    
         }
