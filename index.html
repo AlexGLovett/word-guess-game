@@ -27,9 +27,9 @@
             <h2 class="text-center" id="pressAnyButton">Press Any Button to Start</h2>
             <h4 class="text-center">Type your guess!</h4>
             <h5 class="text-center">Letters A-Z, others will be ignored</h5>
-            <h8>Guesses Remaining: 9</h8> <br>
-            <h8>Wins: 0</h8> <br>
-            <h9>Losses: 0</h9>
+            <h8 id="guessesRemaining">Guesses Remaining: 9</h8> <br>
+            <h8 id="wins">Wins: 0</h8> <br>
+            <h9 id="losses">Losses: 0</h9>
             <p id="char-tracker" class="text-center"></p>
             <p id="guessed-letters" class="text-center">Letters Guessed: </p>
             </div>
@@ -62,35 +62,74 @@
             var charArray = randMonster.split('');
             
             var slots = "";
+            var spacelessSlots = "";
             
             var guesses = 9;
-
+            document.getElementById("guessesRemaining").innerHTML = "Guesses Remaining:  " + guesses;
+            
+            var guessedLetters = "";
             
             for (i=0; i < charArray.length; i++){
-                    slots+="_";
+                    slots+=" _";
+                    spacelessSlots += "_";
                 }
 
             document.getElementById("char-tracker").innerHTML = slots;
 
             console.log(charArray);
 
-            
+            spacelessSlots = spacelessSlots.split('');
+
             document.onkeypress = function(event){
-            if (guesses > 0){
-            console.log(event.key);
-            console.log(event.charCode);
+            if (guesses > 1){
+                var newSlots = ""
                 if (event.charCode >= 97 && event.charCode <= 122){
                     for (i=0; i<charArray.length; i++){
-                            if (event.key == charArray[i]){
-                                var slots2 = slots;
-                                slots2[i] = event.key;
-                                document.getElementById("char-tracker").innerHTML = slots2;
-                                console.log(slots2);
-                                }
+                            if ((event.key == charArray[i]) && (spacelessSlots[i] = "_")){
+                                newSlots += event.key.toUpperCase();
                             }
+                            else if (spacelessSlots[i] != "_"){
+                                newSlots += spacelessSlots[i];
+                            }
+                            else{
+                                newSlots += "_";
+                            }
+
                         }
+                        if (spacelessSlots == newSlots && spacelessSlots.indexOf(event.key.toUpperCase()) == -1){
+                            guesses--;
+                        }
+                        spacelessSlots = newSlots;
+                        }
+                        var charArray2 = newSlots.split('');
+                        slots = "";
+                        for (i=0; i<charArray2.length; i++){
+                            slots += " " + charArray2[i];
+                        }
+                        console.log(slots);
+                        document.getElementById("char-tracker").innerHTML = slots;
+                        if (slots.indexOf('_') == -1){
+                            alert("You Win!")
+                            wins++;
+                            document.getElementById("wins").innerHTML = "Wins: " + wins;
+                            gameStart();
+                        }
+                        
+                        document.getElementById("guessesRemaining").innerHTML = "Guesses Remaining:  " + guesses;
+                        
+                        if (guessedLetters.indexOf(event.key.toUpperCase()) == -1){
+                            guessedLetters += " " + event.key.toUpperCase();
+                        }
+                        console.log(guessedLetters);
+                        
+                        document.getElementById("guessed-letters").innerHTML = "Letters Guessed:" + guessedLetters;
+
+                        
                     }
                 else{
+                    alert("You lost :( Try again")
+                    losses++;
+                    document.getElementById("losses").innerHTML = "Losses: " + losses;
                     gameStart();
                 }
             }    
