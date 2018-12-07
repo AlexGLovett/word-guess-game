@@ -101,7 +101,6 @@
                             guesses--;
                         }
                         spacelessSlots = newSlots;
-                        }
                         var charArray2 = newSlots.split('');
                         slots = "";
                         for (i=0; i<charArray2.length; i++){
@@ -125,19 +124,19 @@
                             wins++;
                             document.getElementById("wins").innerHTML = "Wins: " + wins;
                             gameStart();
-                        }                        
-                    }
-                else{
-                    document.getElementById("guessed-letters").innerHTML = "Letters Guessed:";
-                    alert("You lost :( Try again")
-                    losses++;
-                    document.getElementById("losses").innerHTML = "Losses: " + losses;
-                    gameStart();
-                    
-                }
-            }    
+                        } 
+                    } 
+                }                          
+            else{
+                document.getElementById("guessed-letters").innerHTML = "Letters Guessed:";
+                alert("You lost :( Try again")
+                losses++;
+                document.getElementById("losses").innerHTML = "Losses: " + losses;
+                gameStart();
+                
+            } 
         }
-
+        }
         </script>
 
     </body>
