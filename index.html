@@ -108,13 +108,7 @@
                         }
                         console.log(slots);
                         document.getElementById("char-tracker").innerHTML = slots;
-                        if (slots.indexOf('_') == -1){
-                            alert("You Win!")
-                            wins++;
-                            document.getElementById("wins").innerHTML = "Wins: " + wins;
-                            gameStart();
-                        }
-                        
+
                         document.getElementById("guessesRemaining").innerHTML = "Guesses Remaining:  " + guesses;
                         
                         if (guessedLetters.indexOf(event.key.toUpperCase()) == -1){
@@ -124,13 +118,20 @@
                         
                         document.getElementById("guessed-letters").innerHTML = "Letters Guessed:" + guessedLetters;
 
-                        
+                        if (slots.indexOf('_') == -1){
+                            alert("You Win!")
+                            wins++;
+                            document.getElementById("wins").innerHTML = "Wins: " + wins;
+                            gameStart();
+                            document.getElementById("guessed-letters").innerHTML = "Letters Guessed:";
+                        }                        
                     }
                 else{
                     alert("You lost :( Try again")
                     losses++;
                     document.getElementById("losses").innerHTML = "Losses: " + losses;
                     gameStart();
+                    document.getElementById("guessed-letters").innerHTML = "Letters Guessed:";
                 }
             }    
         }
